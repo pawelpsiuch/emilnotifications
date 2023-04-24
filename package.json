@@ -1,0 +1,24 @@
+{
+  "name": "@pawelpsiuch/emilnotifications",
+  "version": "1.0.0",
+  "description": "Easy email notifications",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "author": "Pawel Psiuch",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "mjml": "^4.14.1"
+  },
+  "devDependencies": {
+    "@types/mjml": "^4.7.1",
+    "@types/nodemailer": "^6.4.7",
+    "typescript": "^5.0.4"
+  }
+}
