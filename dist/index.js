@@ -28,6 +28,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Email = void 0;
 const mjml_1 = __importDefault(require("mjml"));
+const lodash_1 = require("lodash");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 class Email {
@@ -105,7 +106,7 @@ class Email {
             element.content += `<tr>`;
             for (const [key] of Object.entries(data[0])) {
                 //console.log(key)
-                element.content += `<th style="text-align:left">${key}:</th>`;
+                element.content += `<th style="text-align:left">${(0, lodash_1.startCase)((0, lodash_1.camelCase)(key))}:</th>`;
             }
             element.content += `</tr>`;
             data.forEach(row => {
@@ -142,7 +143,7 @@ class Email {
         };
         this.bodyJson.push(element);
     }
-    addList(listData) {
+    addObjectList(listData) {
         let element = {
             tagName: 'mj-table',
             attributes: {
@@ -154,8 +155,8 @@ class Email {
         for (const [key, value] of Object.entries(listData)) {
             //console.log(`${key}: ${value}`);
             element.content += `<tr>
-                <th style="text-align:left">${key}:</th>
-                <td>${value}</td>
+                <th style="text-align:left">${(0, lodash_1.startCase)((0, lodash_1.camelCase)(key))}:</th>
+                <td style="padding-left: 5px;">${value}</td>
             </tr>`;
         }
         this.bodyJson.push(element);
@@ -183,6 +184,21 @@ class Email {
             attributes: {
                 'color': 'red'
             },
+            content: '<ul>'
+        };
+        errors.forEach(row => {
+            //console.log(`${key}: ${value}`);
+            element.content += `
+                <li>${row}:</li>
+            `;
+        });
+        element.content += `</ul>`;
+        this.bodyJson.push(element);
+    }
+    addList(errors) {
+        let element = {
+            tagName: 'mj-text',
+            attributes: {},
             content: '<ul>'
         };
         errors.forEach(row => {

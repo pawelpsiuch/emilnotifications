@@ -32,9 +32,10 @@ export declare class Email {
     addTable(data: object[]): void;
     addTitle(text: string): void;
     addDivider(): void;
-    addList(listData: string[]): void;
+    addObjectList(listData: object): void;
     addWarningList(warnings: string[]): void;
     addErrorList(errors: string[]): void;
+    addList(errors: string[]): void;
     generate(): void;
     send(): void;
 }

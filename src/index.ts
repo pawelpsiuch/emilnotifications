@@ -1,5 +1,6 @@
 import mjml2html from 'mjml'
 import { MJMLParseResults} from 'mjml-core'
+import {startCase, camelCase} from 'lodash';
 import * as dotenv from 'dotenv'
 dotenv.config()
 
@@ -122,7 +123,7 @@ export class Email {
       element.content += `<tr>`
       for (const [key] of Object.entries(data[0]!)) {
         //console.log(key)
-        element.content += `<th style="text-align:left">${key}:</th>`
+        element.content += `<th style="text-align:left">${startCase(camelCase(key))}:</th>`
       }
       element.content += `</tr>`
   
@@ -166,7 +167,7 @@ export class Email {
     this.bodyJson.push(element)
   }
 
-  addList(listData: string[]) {
+  addObjectList(listData: object) {
     let element: MJMLJsonObject = {
       tagName: 'mj-table',
       attributes: {
@@ -179,8 +180,8 @@ export class Email {
     for (const [key, value] of Object.entries(listData)) {
       //console.log(`${key}: ${value}`);
       element.content += `<tr>
-                <th style="text-align:left">${key}:</th>
-                <td>${value}</td>
+                <th style="text-align:left">${startCase(camelCase(key))}:</th>
+                <td style="padding-left: 5px;">${value}</td>
             </tr>`
     }
 
@@ -214,6 +215,27 @@ export class Email {
       tagName: 'mj-text',
       attributes: {
         'color': 'red'
+      },
+      content: '<ul>'
+    }
+
+    errors.forEach(row => {
+
+      //console.log(`${key}: ${value}`);
+      element.content += `
+                <li>${row}:</li>
+            `
+    })
+
+    element.content += `</ul>`
+
+    this.bodyJson.push(element)
+  }
+
+  addList(errors: string[]) {
+    let element: MJMLJsonObject = {
+      tagName: 'mj-text',
+      attributes: {
       },
       content: '<ul>'
     }
