@@ -99,7 +99,7 @@ class Email {
             let element = {
                 tagName: 'mj-table',
                 attributes: {
-                    'font-size': '10px'
+                    'font-size': '20px'
                 },
                 content: ''
             };
@@ -172,7 +172,7 @@ class Email {
         warnings.forEach(row => {
             //console.log(`${key}: ${value}`);
             element.content += `
-                <li>${row}:</li>
+                <li>${row}</li>
             `;
         });
         element.content += `</ul>`;
@@ -189,7 +189,7 @@ class Email {
         errors.forEach(row => {
             //console.log(`${key}: ${value}`);
             element.content += `
-                <li>${row}:</li>
+                <li>${row}</li>
             `;
         });
         element.content += `</ul>`;
@@ -204,7 +204,7 @@ class Email {
         errors.forEach(row => {
             //console.log(`${key}: ${value}`);
             element.content += `
-                <li>${row}:</li>
+                <li>${row}</li>
             `;
         });
         element.content += `</ul>`;
