@@ -116,7 +116,7 @@ export class Email {
       let element: MJMLJsonObject = {
         tagName: 'mj-table',
         attributes: {
-          'font-size': '10px'
+          'font-size': '20px'
         },
         content: ''
       }
@@ -201,7 +201,7 @@ export class Email {
 
       //console.log(`${key}: ${value}`);
       element.content += `
-                <li>${row}:</li>
+                <li>${row}</li>
             `
     })
 
@@ -223,7 +223,7 @@ export class Email {
 
       //console.log(`${key}: ${value}`);
       element.content += `
-                <li>${row}:</li>
+                <li>${row}</li>
             `
     })
 
@@ -244,7 +244,7 @@ export class Email {
 
       //console.log(`${key}: ${value}`);
       element.content += `
-                <li>${row}:</li>
+                <li>${row}</li>
             `
     })
 

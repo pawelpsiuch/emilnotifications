@@ -1,6 +1,6 @@
 {
   "name": "@pawelpsiuch/emilnotifications",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Easy email notifications",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,6 +9,10 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pawelpsiuch/emilnotifications.git"
+  },
   "main": "dist/index.js",
   "author": "Pawel Psiuch",
   "license": "ISC",
