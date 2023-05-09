@@ -37,6 +37,6 @@ export declare class Email {
     addErrorList(errors: string[]): void;
     addList(errors: string[]): void;
     generate(): void;
-    send(): void;
+    send(): Promise<any>;
 }
 export {};

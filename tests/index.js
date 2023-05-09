@@ -20,7 +20,8 @@ const  nodemailerTransporter = nodemailer.createTransport({
     html: 'test'
   });
 
-
+  (async () => {
+    
 const email = new Email(nodemailerTransporter, {
   subject: 'test subject',
   to: process.env.DEVELOPER_EMAIL
@@ -51,4 +52,8 @@ email.addTable(
       Test_Four: 'test four'
     },
   ])
-email.send({})
+
+  let result = await email.send()
+  console.log(result)
+})()
+  

@@ -266,7 +266,7 @@ export class Email {
     //console.log(this.mjml.errors)
   }
 
-  send() {
+  async send() {
     this.json.children?.push({
       tagName: 'mj-body',
       attributes: {
@@ -292,13 +292,7 @@ export class Email {
     this.message.html = this.html
    
 
-    this.transporter.sendMail(this.message, (error: any, info: any) => {
-      if (error) {
-        console.log(error)
-      } else {
-        console.log('Email sent: ' + info.response)
-      }
-    })
+    return  this.transporter.sendMail(this.message)
   }
 
 }
