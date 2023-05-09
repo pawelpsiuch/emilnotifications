@@ -16,12 +16,15 @@ const  nodemailerTransporter = nodemailer.createTransport({
     }
   },{
     from:  process.env.SMTP_FROM,
-      to:  process.env.SMTP_DEVELOPER_EMAIL,
-      html: 'test'
+    to:  process.env.DEVELOPER_EMAIL,
+    html: 'test'
   });
 
 
-const email = new Email(nodemailerTransporter, {})
+const email = new Email(nodemailerTransporter, {
+  subject: 'test subject',
+  to: process.env.DEVELOPER_EMAIL
+})
 email.addList([
   'testOne'
 ])

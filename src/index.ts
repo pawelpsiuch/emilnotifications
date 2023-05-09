@@ -4,6 +4,8 @@ import {startCase, camelCase} from 'lodash';
 import * as dotenv from 'dotenv'
 dotenv.config()
 
+const NODE_ENV = process.env.NODE_ENV || 'development'
+const DEVELOPER_EMAIL = process.env.DEVELOPER_EMAIL || null
 
 type EmailPayload = {
   to: string | string[]
@@ -50,8 +52,14 @@ export class Email {
       attachments: input.attachments || []
     }
 
-    if (process.env.NODE_ENV !== 'production' && process.env.DEVELOPER_EMAIL) {
-      this.message.subject = `[${process.env.NODE_ENV ? process.env.NODE_ENV.toUpperCase() : 'TEST'}] ${this.message.subject}`
+    
+
+    if (NODE_ENV !== 'production') {
+      if(!DEVELOPER_EMAIL){
+        throw 'DEVELOPER_EMAIL not set in .env file'
+      }
+
+      this.message.subject = `[${NODE_ENV.toUpperCase()}] ${this.message.subject}`
       this.message.attachments?.push(
         {   
           filename: 'receivers.txt',
@@ -61,11 +69,9 @@ export class Email {
           })
         }
       )
-      this.message.to = [process.env.DEVELOPER_EMAIL];
+      this.message.to = [DEVELOPER_EMAIL];
       this.message.cc = [];
-    } else {
-      throw 'DEVELOPER_EMAIL not set in .env file'
-    }
+      }
 
     this.html = ''
     this.json = {

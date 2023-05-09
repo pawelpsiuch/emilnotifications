@@ -31,6 +31,8 @@ const mjml_1 = __importDefault(require("mjml"));
 const lodash_1 = require("lodash");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const DEVELOPER_EMAIL = process.env.DEVELOPER_EMAIL || null;
 class Email {
     constructor(transporter, input) {
         var _a, _b, _c;
@@ -42,8 +44,11 @@ class Email {
             subject: input.subject,
             attachments: input.attachments || []
         };
-        if (process.env.NODE_ENV !== 'production' && process.env.DEVELOPER_EMAIL) {
-            this.message.subject = `[${process.env.NODE_ENV ? process.env.NODE_ENV.toUpperCase() : 'TEST'}] ${this.message.subject}`;
+        if (NODE_ENV !== 'production') {
+            if (!DEVELOPER_EMAIL) {
+                throw 'DEVELOPER_EMAIL not set in .env file';
+            }
+            this.message.subject = `[${NODE_ENV.toUpperCase()}] ${this.message.subject}`;
             (_c = this.message.attachments) === null || _c === void 0 ? void 0 : _c.push({
                 filename: 'receivers.txt',
                 content: JSON.stringify({
@@ -51,11 +56,8 @@ class Email {
                     cc: this.message.cc
                 })
             });
-            this.message.to = [process.env.DEVELOPER_EMAIL];
+            this.message.to = [DEVELOPER_EMAIL];
             this.message.cc = [];
-        }
-        else {
-            throw 'DEVELOPER_EMAIL not set in .env file';
         }
         this.html = '';
         this.json = {
